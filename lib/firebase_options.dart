@@ -41,8 +41,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBh89D7wPbuyA4Q1atwM5Zg3wA7aw2iw30',
-    appId: '1:881493058407:web:5551ac69ade1e76a6cc5c2',
+    apiKey: ',
+    appId: '',
     messagingSenderId: '881493058407',
     projectId: 'cogent-bison-415807',
     authDomain: 'cogent-bison-415807.firebaseapp.com',
@@ -50,16 +50,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDWuwgpYF30YgDAIYE9WSRpqp6MmDGKiSw',
-    appId: '1:881493058407:android:e6b8b25f55fdab736cc5c2',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '881493058407',
     projectId: 'cogent-bison-415807',
     storageBucket: 'cogent-bison-415807.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC1v7RHyorznuwixPVUoNzCW8bVN92u3-s',
-    appId: '1:881493058407:ios:5ad35ea3910b9a146cc5c2',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '881493058407',
     projectId: 'cogent-bison-415807',
     storageBucket: 'cogent-bison-415807.appspot.com',
@@ -67,8 +67,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC1v7RHyorznuwixPVUoNzCW8bVN92u3-s',
-    appId: '1:881493058407:ios:5ad35ea3910b9a146cc5c2',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '881493058407',
     projectId: 'cogent-bison-415807',
     storageBucket: 'cogent-bison-415807.appspot.com',
@@ -76,8 +76,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBh89D7wPbuyA4Q1atwM5Zg3wA7aw2iw30',
-    appId: '1:881493058407:web:8e38d6ea70fab4c56cc5c2',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '881493058407',
     projectId: 'cogent-bison-415807',
     authDomain: 'cogent-bison-415807.firebaseapp.com',
