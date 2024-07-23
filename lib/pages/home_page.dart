@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,47 +29,52 @@ class HomePage extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.grey,
-      body: _buildUserList(),
+      body: _buildUserList(context), // Pass the context here
     );
   }
 
   // Build a list of users except for the current logged-in user.
-  Widget _buildUserList() {
+  Widget _buildUserList(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('users').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text("Error");
+          return Center(child: Text("Error: ${snapshot.error}"));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading...");
+          return Center(child: CircularProgressIndicator());
         }
-
-        // Debugging
 
         return ListView(
           children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(doc))
+              .map<Widget>((doc) => _buildUserListItem(doc, context))
               .toList(),
         );
       },
     );
   }
 
-  Widget _buildUserListItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+  Widget _buildUserListItem(DocumentSnapshot document, BuildContext context) {
+    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+
+    if (data == null) {
+      return Container();
+    }
 
     // Check if the necessary fields exist before accessing them
-    if (_auth.currentUser!.email != data['email']) {
+    String? email = data['email'] as String?;
+    String? uid = data['uid'] as String?;
+
+    if (email != null && uid != null && _auth.currentUser?.email != email) {
       return ListTile(
-        title: Text(data['email']),
+        title: Text(email),
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
-                receiveruserEmail: data['email'],
-                receiveruserID: data['uid'],
+                receiveruserEmail: email,
+                receiveruserID: uid,
               ),
             ),
           );

@@ -1,4 +1,4 @@
-import 'package:chatapp/services/auth/auth_gate.dart';
+import 'package:chatapp/pages/completedProfile.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+      home: CompleteProfile(),
     );
   }
 }

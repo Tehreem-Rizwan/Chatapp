@@ -1,5 +1,6 @@
 import 'package:chatapp/components/my_button.dart';
 import 'package:chatapp/components/my_textfield.dart';
+import 'package:chatapp/pages/completedProfile.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,6 +33,10 @@ class _RegisterPageState extends State<RegisterPage> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CompleteProfile()),
+    );
   }
 
   @override
@@ -59,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 50,
                     ),
                     const Text(
-                      "Lets create an account for you",
+                      "Lets create an account for you!!",
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
