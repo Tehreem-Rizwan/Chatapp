@@ -1,4 +1,4 @@
-import 'package:chatapp/pages/loginpage.dart';
+/*import 'package:chatapp/pages/loginpage.dart';
 import 'package:chatapp/pages/registerpage.dart';
 import 'package:flutter/material.dart';
 
@@ -31,3 +31,4 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
     }
   }
 }
+*/
