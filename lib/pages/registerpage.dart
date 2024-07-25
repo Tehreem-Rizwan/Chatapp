@@ -146,13 +146,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: 4,
                         ),
                         CupertinoButton(
-                          color: Colors.black,
+                          color: Colors.grey[300],
                           onPressed: () {
                             Navigator.pop(context);
                           },
                           child: Text(
                             "Log In",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ),
                       ],

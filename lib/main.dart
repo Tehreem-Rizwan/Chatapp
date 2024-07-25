@@ -5,8 +5,10 @@ import 'package:chatapp/pages/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:uuid/uuid.dart';
 import 'firebase_options.dart';
 
+var uuid = Uuid();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Already Logged In
+//Already Logged In
 class MyAppLoggedIn extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;

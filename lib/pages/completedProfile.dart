@@ -37,8 +37,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   Future<void> fetchUserData() async {
     final userDoc = await FirebaseFirestore.instance
         .collection('users')
-        .doc('userId')
-        .get(); // replace 'userId' with actual user ID
+        .doc(widget.userModel.uid)
+        .get();
     if (userDoc.exists) {
       final userData = userDoc.data();
       setState(() {
@@ -105,7 +105,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
     String fullname = fullnamecontroller.text.trim();
 
     if (fullname == "" || imageFile == null) {
-      print("Please fill all the fields");
       UIHelper.showAlertDialog(context, "Incomplete Data",
           "Please fill all the fields and upload a profile picture");
     } else {
@@ -114,35 +113,38 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   void uploadData() async {
-    UIHelper.showLoadingDialog(context, "Uploading image..");
+    try {
+      UIHelper.showLoadingDialog(context, "Uploading image..");
 
-    UploadTask uploadTask = FirebaseStorage.instance
-        .ref("profilepictures")
-        .child(widget.userModel.uid.toString())
-        .putFile(imageFile!);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref("profilepictures")
+          .child(widget.userModel.uid.toString())
+          .putFile(imageFile!);
 
-    TaskSnapshot snapshot = await uploadTask;
+      TaskSnapshot snapshot = await uploadTask;
+      String imageUrl = await snapshot.ref.getDownloadURL();
 
-    String? imageUrl = await snapshot.ref.getDownloadURL();
-    String? fullname = fullnamecontroller.text.trim();
+      widget.userModel.fullname = fullnamecontroller.text.trim();
+      widget.userModel.profilepic = imageUrl;
 
-    widget.userModel.fullname = fullname;
-    widget.userModel.profilepic = imageUrl;
-
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(widget.userModel.uid)
-        .set(widget.userModel.toMap())
-        .then((value) {
-      Navigator.popUntil(context, (route) => route.isFirst);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) {
-          return HomePage(
-              userModel: widget.userModel, firebaseUser: widget.firebaseUser);
-        }),
-      );
-    });
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.userModel.uid)
+          .set(widget.userModel.toMap())
+          .then((value) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return HomePage(
+                userModel: widget.userModel, firebaseUser: widget.firebaseUser);
+          }),
+        );
+      });
+    } catch (e) {
+      Navigator.pop(context); // Close the loading dialog
+      UIHelper.showAlertDialog(context, "Error", "Failed to upload image: $e");
+    }
   }
 
   @override
@@ -193,7 +195,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 child: CupertinoButton(
                   color: Colors.black,
                   onPressed: () {
-                    uploadData();
+                    checkValues(); // Call checkValues instead of uploadData directly
                   },
                   child: const Text(
                     "Submit",
